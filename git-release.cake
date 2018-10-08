@@ -27,13 +27,22 @@ Task("GitRelease")
 
     // Build a string containing paths to NuGet packages
     var files = GetFiles("output/*.unitypackage");
+    var skippedPackages = new[]
+    {
+        "AppCenter-v" + publishVersion,
+        "AppCenterPush-v" + publishVersion
+    };
     var assets = string.Empty;
     foreach (var file in files)
     {
-        assets += file.FullPath + ",";
+        if (!skippedPackages.Contains(file.GetFilenameWithoutExtension()))
+        {
+            assets += file.FullPath + ",";
+        }
     }
     assets = assets.Substring(0, assets.Length - 1);
-    GitReleaseManagerCreate(username, password, owner, repo, new GitReleaseManagerCreateSettings {
+    GitReleaseManagerCreate(username, password, owner, repo, new GitReleaseManagerCreateSettings
+    {
         Prerelease = false,
         Assets = assets,
         TargetCommitish = "master",

@@ -15,7 +15,7 @@ Task("GitRelease")
     var specFilePath = GetFiles("UnityPackageSpecs/*.unitypackagespec").First().ToString();
     var publishVersion = XmlPeek(specFilePath, "package/@version");
 
-    var username = "evgeny-pol";
+    var username = "user";
     var password = Argument<string>("GithubToken");
     var owner = "evgeny-pol";
     var repo = "AppCenter-SDK-Unity";

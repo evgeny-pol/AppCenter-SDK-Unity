@@ -593,9 +593,10 @@ Task("PublishPackagesToStorage").Does(()=>
     var accountName = EnvironmentVariable("AZURE_STORAGE_ACCOUNT");
     var corePackageVersion = XmlPeek(File("UnityPackageSpecs/AppCenter.unitypackagespec"), "package/@version");
     var zippedPackages = "AppCenter-SDK-Unity-" + corePackageVersion + ".zip";
-    Information("Publishing packages to blob " + zippedPackages);
     var files = GetFiles("output/*.unitypackage");
+    Information("Archiving packages");
     Zip("./", zippedPackages, files);
+    Information("Publishing packages to blob " + zippedPackages);
     AzureStorage.UploadFileToBlob(new AzureStorageSettings
     {
         AccountName = accountName,

@@ -4,6 +4,8 @@
 #addin nuget:?package=Cake.Git
 #tool "nuget:?package=gitreleasemanager"
 
+using System.Linq;
+
 // Task TARGET for build
 var TARGET = Argument("target", Argument("t", "Default"));
 Task("Default").IsDependentOn("GitRelease");

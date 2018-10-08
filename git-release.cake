@@ -30,11 +30,11 @@ Task("GitRelease")
     var assets = string.Empty;
     foreach (var file in files)
     {
-      assets += file.FullPath + ",";
+        assets += file.FullPath + ",";
     }
-    assets = assets.Substring(0, assets.Length-1);
+    assets = assets.Substring(0, assets.Length - 1);
     GitReleaseManagerCreate(username, password, owner, repo, new GitReleaseManagerCreateSettings {
-        Prerelease = true,
+        Prerelease = false,
         Assets = assets,
         TargetCommitish = "master",
         InputFilePath = releaseFile.Path.FullPath,
